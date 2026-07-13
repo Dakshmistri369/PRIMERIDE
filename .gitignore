@@ -1,0 +1,30 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vite/Vue Cache
+.vite/
+.nuxt/
+.vercel/
+
+# Local env files
+.env
+.env*.local
