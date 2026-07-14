@@ -11,5 +11,26 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) {
+              return 'three';
+            }
+            if (id.includes('gsap')) {
+              return 'gsap';
+            }
+            if (id.includes('vue') || id.includes('vue-router')) {
+              return 'vue-core';
+            }
+            return 'vendor';
+          }
+        }
+      }
+    }
   }
 });
