@@ -19,9 +19,9 @@
   --neon-green: #ffffff;
   --neon-orange: #888888;
 
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-muted: rgba(255, 255, 255, 0.45);
+  --text-primary: #ff4d4d;
+  --text-secondary: rgba(255, 77, 77, 0.7);
+  --text-muted: rgba(255, 77, 77, 0.45);
 
   --gradient-hero: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
   --gradient-blue: linear-gradient(135deg, #ffffff, #666666);
@@ -643,34 +643,17 @@ img { max-width: 100%; }
   opacity: 1;
 }
 
-/* Dynamic Text Color Overrides */
-body[data-text-color="red"] {
-  --text-primary: #ff4d4d !important;
-  --text-secondary: rgba(255, 77, 77, 0.7) !important;
-  --text-muted: rgba(255, 77, 77, 0.45) !important;
-}
-body[data-text-color="white"] {
-  --text-primary: #ffffff !important;
-  --text-secondary: rgba(255, 255, 255, 0.7) !important;
-  --text-muted: rgba(255, 255, 255, 0.45) !important;
-}
-body[data-text-color="yellow"] {
-  --text-primary: #ffeb3b !important;
-  --text-secondary: rgba(255, 235, 59, 0.7) !important;
-  --text-muted: rgba(255, 235, 59, 0.45) !important;
-}
-
-/* Override all text elements that use gradients or transparent fill colors */
-body[data-text-color] .text-gradient,
-body[data-text-color] .text-gradient-pink,
-body[data-text-color] .logo-text,
-body[data-text-color] .logo-name,
-body[data-text-color] .stat-num,
-body[data-text-color] .step-number,
-body[data-text-color] .price-value,
-body[data-text-color] .brand-letter,
-body[data-text-color] .estimate-total,
-body[data-text-color] .modal-fare-amount {
+/* Dynamic Text Color Overrides - Locked to Red */
+.text-gradient,
+.text-gradient-pink,
+.logo-text,
+.logo-name,
+.stat-num,
+.step-number,
+.price-value,
+.brand-letter,
+.estimate-total,
+.modal-fare-amount {
   background: none !important;
   -webkit-text-fill-color: var(--text-primary) !important;
   color: var(--text-primary) !important;

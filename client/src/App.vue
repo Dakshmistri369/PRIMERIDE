@@ -85,46 +85,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref } from 'vue';
 import Navbar from './components/Navbar.vue';
 import SplashScreen from './components/SplashScreen.vue';
 import { RouterView, RouterLink } from 'vue-router';
 
 const showSplash = ref(true);
-
-const colors = ['red', 'yellow', 'white'];
-const currentColorIndex = ref(-1);
-let colorTimeout = null;
-
-function handleGlobalClickOrTouch() {
-  currentColorIndex.value = (currentColorIndex.value + 1) % colors.length;
-  const color = colors[currentColorIndex.value];
-  document.body.setAttribute('data-text-color', color);
-
-  // Clear existing timeout if user clicks again before 5 minutes
-  if (colorTimeout) {
-    clearTimeout(colorTimeout);
-  }
-
-  // Revert back to original colors after 5 minutes of inactivity (5 * 60 * 1000 ms)
-  colorTimeout = setTimeout(() => {
-    document.body.removeAttribute('data-text-color');
-    currentColorIndex.value = -1;
-  }, 5 * 60 * 1000);
-}
-
-onMounted(() => {
-  window.addEventListener('click', handleGlobalClickOrTouch);
-  window.addEventListener('touchstart', handleGlobalClickOrTouch, { passive: true });
-});
-
-onUnmounted(() => {
-  window.removeEventListener('click', handleGlobalClickOrTouch);
-  window.removeEventListener('touchstart', handleGlobalClickOrTouch);
-  if (colorTimeout) {
-    clearTimeout(colorTimeout);
-  }
-});
 </script>
 
 <style scoped>
