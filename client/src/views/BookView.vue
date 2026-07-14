@@ -187,7 +187,9 @@
                 class="driver-card glass-card"
                 :id="`driver-card-${driver.id}`"
               >
-                <div class="driver-avatar">{{ driver.avatar }}</div>
+                <div class="driver-avatar">
+                  <img :src="driver.avatar" :alt="driver.name" />
+                </div>
                 <div class="driver-info">
                   <span class="driver-name">{{ driver.name }}</span>
                   <span class="driver-car">{{ driver.car }}</span>
@@ -214,7 +216,10 @@
           <div class="modal-booking-id">Booking ID: <strong>{{ confirmedBooking.id }}</strong></div>
 
           <div class="modal-driver">
-            <div class="modal-driver-avatar">👨‍💼</div>
+            <div class="modal-driver-avatar">
+              <img v-if="confirmedBooking.driver.avatar" :src="confirmedBooking.driver.avatar" :alt="confirmedBooking.driver.name" />
+              <span v-else>👨‍💼</span>
+            </div>
             <div>
               <div class="modal-driver-name">{{ confirmedBooking.driver.name }}</div>
               <div class="modal-driver-car">{{ confirmedBooking.driver.car }}</div>
@@ -778,6 +783,13 @@ onUnmounted(() => {
   justify-content: center;
   font-size: 1.3rem;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.driver-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .driver-info { flex: 1; display: flex; flex-direction: column; gap: 0.15rem; }
@@ -839,6 +851,13 @@ onUnmounted(() => {
   justify-content: center;
   font-size: 1.5rem;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.modal-driver-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .modal-driver-name { font-weight: 700; font-size: 1rem; }

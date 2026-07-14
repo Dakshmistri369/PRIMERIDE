@@ -58,7 +58,8 @@ app.post('/api/booking', async (req, res) => {
     rating: 4.9,
     car: 'Toyota Camry - KA 01 AB 1234',
     eta: 4,
-    phone: '+91 98765 43210'
+    phone: '+91 98765 43210',
+    avatar: 'https://i.pravatar.cc/80?img=11'
   };
 
   try {
@@ -75,7 +76,8 @@ app.post('/api/booking', async (req, res) => {
         rating: parseFloat(selected.rating),
         car: `${selected.car} - KA 01 PR ${Math.floor(1000 + Math.random() * 9000)}`,
         eta: selected.eta,
-        phone: '+91 ' + Math.floor(6000000000 + Math.random() * 3999999999)
+        phone: '+91 ' + Math.floor(6000000000 + Math.random() * 3999999999),
+        avatar: selected.avatar
       };
     }
   } catch (err) {
