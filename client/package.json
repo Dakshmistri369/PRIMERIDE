@@ -1,7 +1,7 @@
 {
   "name": "primeride-client",
   "version": "1.0.0",
-  "description": "PrimeRide Vue.js Frontend",
+  "description": "Premium, high-fidelity Vue.js frontend for PrimeRide, featuring Three.js 3D car interactions, interactive Earth globe, and a custom dark glassmorphic design system.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

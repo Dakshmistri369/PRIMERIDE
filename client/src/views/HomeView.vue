@@ -26,8 +26,9 @@
           <span class="text-gradient-pink">PrimeRide</span>
         </h1>
         <p class="hero-subtitle animate-fade-up delay-2">
-          Premium rides at the speed of light. Book your journey in seconds, 
-          arrive in style. Available 24/7 across 50+ cities.
+          Experience next-generation urban mobility. PrimeRide fuses state-of-the-art 
+          3D WebGL interfaces with real-time driver dispatching to provide zero-friction, 
+          ultra-luxurious journeys. Available 24/7 across 50+ cities.
         </p>
         <div class="hero-actions animate-fade-up delay-3">
           <RouterLink to="/book" class="btn btn-primary btn-hero" id="hero-book-cta">

@@ -1,7 +1,7 @@
 {
   "name": "primeride-server",
   "version": "1.0.0",
-  "description": "PrimeRide Express.js API",
+  "description": "High-performance Express.js backend API for PrimeRide, offering live driver routing, ride estimations, and booking management powered by Supabase.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

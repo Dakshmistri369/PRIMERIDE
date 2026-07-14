@@ -1,6 +1,6 @@
 # PrimeRide 🚗⚡
 
-> PrimeRide is a super-premium, high-fidelity ride-hailing landing page and web application. It combines cutting-edge 3D WebGL graphics, immersive interactions, and dark glassmorphic design systems to create a truly luxurious user experience.
+> **PrimeRide** is a premium, high-fidelity ride-hailing landing page and web application engineered to redefine urban mobility. It fuses next-generation Three.js WebGL 3D graphics, smooth scroll-driven drift animations, and an interactive dark glassmorphic design system with a high-performance Express backend and a robust Supabase database integration.
 
 ---
 

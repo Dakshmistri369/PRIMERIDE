@@ -1,7 +1,7 @@
 {
   "name": "primeride",
   "version": "1.0.0",
-  "description": "PrimeRide - Root workspace",
+  "description": "PrimeRide — A premium, high-fidelity ride-hailing landing page and web application built with Vue 3, Three.js WebGL, Express, and Supabase.",
   "scripts": {
     "dev": "npm run dev --prefix client",
     "build": "npm run build --prefix client",

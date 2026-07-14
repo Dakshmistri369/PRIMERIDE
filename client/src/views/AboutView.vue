@@ -20,9 +20,10 @@
             <span class="text-gradient-pink">Rides</span>
           </h1>
           <p class="hero-subtitle animate-fade-up delay-2">
-            PrimeRide was born from a simple idea: everyone deserves a premium ride experience. 
-            Founded in 2023, we've grown from a small startup in Bangalore to a national platform 
-            serving 2 million+ rides across 50 cities.
+            PrimeRide was established to disrupt traditional ride-hailing by merging luxury travel 
+            with cutting-edge software engineering. Built on a foundation of high-performance backend systems 
+            and immersive 3D graphics, we deliver zero-friction, eco-conscious transportation for over 2 million 
+            riders across 50 cities.
           </p>
           <div class="hero-actions animate-fade-up delay-3">
             <RouterLink to="/book" class="btn btn-primary btn-hero" id="about-book-cta">Book a Ride</RouterLink>
