@@ -119,7 +119,11 @@ app.post('/api/booking', async (req, res) => {
   }, 800);
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🚗 PrimeRide API running at http://localhost:${PORT}`);
-  console.log(`📡 Endpoints: /api/health | /api/rides | /api/drivers | /api/booking\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🚗 PrimeRide API running at http://localhost:${PORT}`);
+    console.log(`📡 Endpoints: /api/health | /api/rides | /api/drivers | /api/booking\n`);
+  });
+}
+
+module.exports = app;

@@ -8,5 +8,11 @@
     "preview": "npm run preview --prefix client",
     "server": "npm run dev --prefix server",
     "start": "npm run start --prefix server"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2"
   }
 }
