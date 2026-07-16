@@ -1,14 +1,58 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const ridesRouter = require('./routes/rides');
 const supabase = require('./supabase');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+// Use helmet for secure HTTP headers
+app.use(helmet());
+
+// Configure CORS for trusted origins
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    const isAllowed = allowedOrigins.some(allowed => origin === allowed || origin.startsWith(allowed));
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
+
+// Global API rate limiting
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests. Please try again later.' }
+});
+
+// Specific rate limit for bookings
+const bookingLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 15,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many booking attempts. Please try again in 15 minutes.' }
+});
+
+app.use('/api/', apiLimiter);
 
 // Routes
 app.use('/api/rides', ridesRouter);
@@ -48,8 +92,28 @@ app.get('/api/drivers', async (req, res) => {
 });
 
 // Booking endpoint (saved to Supabase, with mock fallback)
-app.post('/api/booking', async (req, res) => {
+app.post('/api/booking', bookingLimiter, async (req, res) => {
   const { pickup, dropoff, rideType } = req.body;
+
+  // Validation & Sanitization
+  if (!pickup || typeof pickup !== 'string' || pickup.trim().length === 0) {
+    return res.status(400).json({ success: false, error: 'Pickup location is required.' });
+  }
+  if (!dropoff || typeof dropoff !== 'string' || dropoff.trim().length === 0) {
+    return res.status(400).json({ success: false, error: 'Dropoff location is required.' });
+  }
+  if (!rideType || typeof rideType !== 'string' || rideType.trim().length === 0) {
+    return res.status(400).json({ success: false, error: 'Ride type is required.' });
+  }
+
+  const validRideTypes = ['economy', 'premium', 'xl', 'luxury'];
+  const sanitizedRideType = rideType.toLowerCase().trim();
+  if (!validRideTypes.includes(sanitizedRideType)) {
+    return res.status(400).json({ success: false, error: 'Invalid ride type selection.' });
+  }
+
+  const sanitizedPickup = pickup.trim();
+  const sanitizedDropoff = dropoff.trim();
   const bookingId = 'PR' + Date.now().toString().slice(-6);
   
   // Assign driver
@@ -67,7 +131,7 @@ app.post('/api/booking', async (req, res) => {
     const { data: dbDrivers } = await supabase
       .from('drivers')
       .select('*')
-      .eq('type', rideType);
+      .eq('type', sanitizedRideType);
       
     if (dbDrivers && dbDrivers.length > 0) {
       const selected = dbDrivers[Math.floor(Math.random() * dbDrivers.length)];
@@ -84,16 +148,16 @@ app.post('/api/booking', async (req, res) => {
     console.log('Driver assignment fell back to mock:', err.message);
   }
 
-  const fare = rideType === 'economy' ? 150 : rideType === 'premium' ? 280 : 420;
+  const fare = sanitizedRideType === 'economy' ? 150 : sanitizedRideType === 'premium' ? 280 : 420;
 
   try {
     const { error } = await supabase
       .from('bookings')
       .insert({
         id: bookingId,
-        pickup,
-        dropoff,
-        ride_type: rideType,
+        pickup: sanitizedPickup,
+        dropoff: sanitizedDropoff,
+        ride_type: sanitizedRideType,
         driver_name: driver.name,
         driver_car: driver.car,
         fare,
@@ -110,9 +174,9 @@ app.post('/api/booking', async (req, res) => {
       success: true,
       booking: {
         id: bookingId,
-        pickup,
-        dropoff,
-        rideType,
+        pickup: sanitizedPickup,
+        dropoff: sanitizedDropoff,
+        rideType: sanitizedRideType,
         driver,
         fare,
         status: 'confirmed'
