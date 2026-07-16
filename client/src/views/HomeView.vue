@@ -1288,7 +1288,6 @@ const testimonials = [
 .ride-card-inner { padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
 
 .ride-card.active .ride-card-inner {
-  border-color: rgba(255, 255, 255, 0.35);
   box-shadow: var(--shadow-glow-blue), var(--shadow-card);
 }
 
